@@ -1,5 +1,10 @@
 package bg.tu_varna.sit.libraryProject;
 
+import bg.tu_varna.sit.libraryProject.books.Author;
+import bg.tu_varna.sit.libraryProject.books.Book;
+import bg.tu_varna.sit.libraryProject.books.Genre;
+import bg.tu_varna.sit.libraryProject.books.Raiting;
+
 public class App {
     public static void main(String[] args) throws Exception {
        // Author author1 = new Author("Joseph", "Heller"); // cath22

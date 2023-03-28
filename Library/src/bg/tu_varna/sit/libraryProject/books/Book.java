@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.libraryProject;
+package bg.tu_varna.sit.libraryProject.books;
 
 public class Book {
 
