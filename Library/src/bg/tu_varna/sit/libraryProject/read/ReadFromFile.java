@@ -1,7 +1,7 @@
 package bg.tu_varna.sit.libraryProject.read;
 
-import org.w3c.dom.*;
-import javax.xml.parsers.*;
+//import org.w3c.dom.*;
+//import javax.xml.parsers.*;
 import java.io.*;
 
 public class ReadFromFile {
@@ -14,9 +14,9 @@ public class ReadFromFile {
          if(!inputFile.exists()){
             inputFile.createNewFile();
          }
-         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-         Document doc = dBuilder.parse(inputFile);
+         //DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        // DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        // Document doc = dBuilder.parse(inputFile);
         // NodeList nList = doc.getElementsByTagName("student");
       } catch (Exception ex) {
          ex.printStackTrace();
