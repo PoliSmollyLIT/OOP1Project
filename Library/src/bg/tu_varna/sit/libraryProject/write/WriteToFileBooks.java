@@ -27,7 +27,7 @@ public class WriteToFileBooks extends WriteToAllFiles implements WriteToBooksFil
 
         // root elements
         Document doc = docBuilder.newDocument();
-        Element rootElement = doc.createElement("userlist");
+        Element rootElement = doc.createElement("booklist");
         doc.appendChild(rootElement);
 
         Element book = doc.createElement("book");
