@@ -41,4 +41,10 @@ public class User {
         return this.accessLevel;
     }
 
+    @Override
+    public String toString() {
+        return "User: " + userName + "\npassword: " + password + "\naccessLevel: " + accessLevel + "\n";
+    }
+
+    
 }

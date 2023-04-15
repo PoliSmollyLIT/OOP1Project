@@ -2,6 +2,7 @@
 <userlist>
     <user>
         <name>admin</name>
-        <password>i<3c++</password>
+        <password>i&lt;3c++</password>
+        <access>ADMIN</access>
     </user>
-</user list>
+</userlist>

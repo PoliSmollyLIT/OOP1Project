@@ -1,11 +1,13 @@
 package bg.tu_varna.sit.libraryProject.write;
 
+import java.util.ArrayList;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import bg.tu_varna.sit.libraryProject.users.User;
 
 public interface WriteToUsersFile extends WriteToFile{
-    String filename = "users.xml";
-    void writeToFile(User userToAdd) throws ParserConfigurationException;
+    String filename = "src\\bg\\tu_varna\\sit\\libraryProject\\xmls\\users.xml";
+    void writeToFile(ArrayList<User> users) throws ParserConfigurationException;
     
 }
