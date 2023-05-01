@@ -2,13 +2,13 @@ package bg.tu_varna.sit.libraryProject.write;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+//import java.io.FileOutputStream;
+//import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.TransformerException;
+//import javax.xml.transform.TransformerException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,12 +17,22 @@ import org.w3c.dom.Text;
 import bg.tu_varna.sit.libraryProject.books.Book;
 
 public class WriteToFileBooks extends WriteToAllFiles implements WriteToBooksFile {
+    private String newFileName;
 
     public WriteToFileBooks() {
     }
 
     @Override
     public void writeToFile(ArrayList<Book> books) throws ParserConfigurationException {
+        if(newFileName == null){
+            super.writeToXml(filename, generateDocument(books));
+        }else{
+            super.writeToXml(newFileName, generateDocument(books));
+        }
+    }
+
+    private Document generateDocument(ArrayList<Book> books) throws ParserConfigurationException {
+
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
@@ -31,7 +41,6 @@ public class WriteToFileBooks extends WriteToAllFiles implements WriteToBooksFil
         Element rootElement = doc.createElement("booklist");
         doc.appendChild(rootElement);
         for (Book bookToAdd : books) {
-
             Element book = doc.createElement("book");
             Element bookTitle = doc.createElement("title");
             Text bookTitleTxt = doc.createTextNode(bookToAdd.getTitle());
@@ -78,15 +87,12 @@ public class WriteToFileBooks extends WriteToAllFiles implements WriteToBooksFil
 
             rootElement.appendChild(book);
         }
-
-        // write dom document to a file
-        try (FileOutputStream output = new FileOutputStream(filename)) {
-            super.writeXml(doc, output);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        }
+        return doc;
     }
+
+    public void setNewFileName(String newFileName) {
+        this.newFileName = "src\\bg\\tu_varna\\sit\\libraryProject\\xmls\\" +  newFileName;
+    }
+
 
 }

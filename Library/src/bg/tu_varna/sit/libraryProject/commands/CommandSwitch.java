@@ -12,12 +12,14 @@ import bg.tu_varna.sit.libraryProject.write.WriteToFileBooks;
 import bg.tu_varna.sit.libraryProject.write.WriteToFileUsers;
 
 public class CommandSwitch {
+    private static String openedFile = "";
+
     public CommandSwitch() {
     }
 
     public static void runCommand(String enteredCommand) {
         User activeUser = UsersListSingleton.getInstance().getActiveUser();
-        String openedFile = "";
+        
         String realCommand, params = "";
         if(!enteredCommand.contains(" ")){
             realCommand = enteredCommand;    
@@ -52,6 +54,7 @@ public class CommandSwitch {
                 WriteToFileBooks writeFile = new WriteToFileBooks();
                 try {
                     writeFile.writeToFile(BookListSingleton.getInstance().getAllBooks());
+                    System.out.println("Saved successfully");
                 } catch (ParserConfigurationException e) {
                     e.printStackTrace();
                 }
@@ -60,6 +63,7 @@ public class CommandSwitch {
                 WriteToFileUsers writeFile = new WriteToFileUsers();
                 try {
                     writeFile.writeToFile(UsersListSingleton.getInstance().getAllUsers());
+                    System.out.println("Saved successfully");
                 } catch (ParserConfigurationException e) {
                     e.printStackTrace();
                 }
@@ -69,18 +73,26 @@ public class CommandSwitch {
                 }
             
         } else if (realCommand.equals(CommandsEnum.SAVEAS.getCommand())) {
-            if(openedFile.equals("books.xml")){
+            if(openedFile == ""){
+                System.out.println("There is no opened file to save");
+            }
+            
+            else if(openedFile.equals("books.xml")){
                 WriteToFileBooks writeFile = new WriteToFileBooks();
+                writeFile.setNewFileName(params);
                 try {
                     writeFile.writeToFile(BookListSingleton.getInstance().getAllBooks());
+                    System.out.println("Saved successfully");
                 } catch (ParserConfigurationException e) {
                     e.printStackTrace();
                 }
             }
             else if(openedFile.equals("users.xml")){
                 WriteToFileUsers writeFile = new WriteToFileUsers();
+                writeFile.setNewFileName(params);
                 try {
                     writeFile.writeToFile(UsersListSingleton.getInstance().getAllUsers());
+                    System.out.println("Saved successfully");
                 } catch (ParserConfigurationException e) {
                     e.printStackTrace();
                 }
@@ -88,7 +100,6 @@ public class CommandSwitch {
             else{
                     System.out.println("Saved unsuccessfully");
                 }
-            System.out.println(CommandsEnum.SAVEAS.getDescription());
 
         } else if (realCommand.equals(CommandsEnum.HELP.getCommand())) {
             for (CommandsEnum command : CommandsEnum.values()) {
@@ -96,7 +107,13 @@ public class CommandSwitch {
             }
 
         } else if (realCommand.equals(CommandsEnum.LOGIN.getCommand())) {
-            System.out.println(CommandsEnum.LOGIN.getDescription());
+            LoginCommand login = new LoginCommand();
+            try {
+                login.login();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
         } else if (realCommand.equals(CommandsEnum.LOGOUT.getCommand())) {
             System.out.println(CommandsEnum.LOGOUT.getDescription());
@@ -159,4 +176,4 @@ public class CommandSwitch {
             System.exit(0);
         }
 
-    }}}
+    }}

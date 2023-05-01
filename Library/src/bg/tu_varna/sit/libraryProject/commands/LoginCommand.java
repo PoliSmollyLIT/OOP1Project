@@ -1,31 +1,42 @@
 package bg.tu_varna.sit.libraryProject.commands;
 
-import javax.xml.parsers.ParserConfigurationException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-import bg.tu_varna.sit.libraryProject.users.AccessLevel;
 import bg.tu_varna.sit.libraryProject.users.User;
-import bg.tu_varna.sit.libraryProject.write.WriteToFileUsers;
+import bg.tu_varna.sit.libraryProject.users.UsersListSingleton;
 
-public class LoginCommand implements Command{
-    private User user;
-    private WriteToFileUsers fileWriter;
-
-    @Override
-    public void runCommand() {
-        // add-logic
-        
-        try {
-            fileWriter.writeToFile(user);
-        } catch (ParserConfigurationException e) {
-             e.printStackTrace();
+public class LoginCommand{
+    
+    public void login() throws Exception{
+        User userToLog = new User();
+        String username = writeUserName();
+        String password = writePassword();
+        userToLog.setUserLoginInfo(username, password);
+        if(!(UsersListSingleton.getInstance().userExist(userToLog))){
+            if(!(UsersListSingleton.getInstance().checkIfCorrectCredentials(userToLog))){
+                System.out.println("Wrong username or password!");
+            }            
+        }else{
+            if(UsersListSingleton.getInstance().checkIfUserIsActive(userToLog)){
+                System.out.println("You are already logged!");
+            }else{
+                UsersListSingleton.getInstance().setActiveUser(userToLog);
+                System.out.println("Welcome, " + username + "!");
+            }
         }
     }
 
-    @Override
-    public void setParameters(String[] args) {
-        user = new User();
-        user.setUserInfo(args[0], args[1], AccessLevel.USER);
+    private String writeUserName() throws IOException{
+        System.out.println("Enter username: ");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        return reader.readLine().toString();
     }
-    
-    
+
+    private String writePassword() throws IOException{
+        System.out.println("Enter password: ");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        return reader.readLine().toString();
+    }
 }
