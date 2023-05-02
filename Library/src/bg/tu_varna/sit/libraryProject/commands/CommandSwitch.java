@@ -111,15 +111,16 @@ public class CommandSwitch {
             try {
                 login.login();
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
 
         } else if (realCommand.equals(CommandsEnum.LOGOUT.getCommand())) {
-            System.out.println(CommandsEnum.LOGOUT.getDescription());
+            LoginCommand login = new LoginCommand();
+            login.logout();
+            System.out.println("You have been sucssessfully logged out!");
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_ALL.getCommand())) {
-            if(openedFile == ""){
+            if(openedFile == "" || openedFile == "users.xml"){
                 System.out.println("There is no opened file to save");
             }
             System.out.println(CommandsEnum.BOOKS_ALL.getDescription());
