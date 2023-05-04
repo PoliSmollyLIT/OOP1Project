@@ -1,5 +1,7 @@
 package bg.tu_varna.sit.libraryProject.commands;
 
+import java.io.IOException;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import bg.tu_varna.sit.libraryProject.books.BookListSingleton;
@@ -123,38 +125,66 @@ public class CommandSwitch {
             if(openedFile == "" || openedFile == "users.xml"){
                 System.out.println("There is no opened file to save");
             }
+            if(activeUser == null){
+                System.out.println("There is no active user!");
+            }
+            BooksCommand booksCommands = new BooksCommand();
+            booksCommands.showAllBooks();
             System.out.println(CommandsEnum.BOOKS_ALL.getDescription());
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_INFO.getCommand())) {
-            if(openedFile == ""){
+            if(openedFile == "" || openedFile == "users.xml"){
                 System.out.println("There is no opened file to save");
+            }
+            if(activeUser == null){
+                System.out.println("There is no active user!");
             }
             System.out.println(CommandsEnum.BOOKS_INFO.getDescription());
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_FIND.getCommand())) {
-            if(openedFile == ""){
+            if(openedFile == "" || openedFile == "users.xml"){
                 System.out.println("There is no opened file to save");
+            }
+            if(activeUser == null){
+                System.out.println("There is no active user!");
             }
             System.out.println(CommandsEnum.BOOKS_FIND.getDescription());
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_SORT.getCommand())) {
-            if(openedFile == ""){
+            if(openedFile == "" || openedFile == "users.xml"){
                 System.out.println("There is no opened file to save");
+            }
+            if(activeUser == null){
+                System.out.println("There is no active user!");
             }
             System.out.println(CommandsEnum.BOOKS_SORT.getDescription());
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_ADD.getCommand())) {
-            if(openedFile == ""){
+            if(openedFile == "" || openedFile == "users.xml"){
                 System.out.println("There is no opened file to save");
+            }
+            if(activeUser == null){
+                System.out.println("There is no active user!");
             }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
                 System.out.println("You do not have access to do this");
+            }else{
+                BooksCommand booksCommands = new BooksCommand();
+                try {
+                    booksCommands.addBook();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Book added sucssessfully!");
             }
-            System.out.println(CommandsEnum.BOOKS_ADD.getDescription());
+            
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_REMOVE.getCommand())) {
-            if(openedFile == ""){
+            if(openedFile == "" || openedFile == "users.xml"){
                 System.out.println("There is no opened file to save");
+            }
+            if(activeUser == null){
+                System.out.println("There is no active user!");
             }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
                 System.out.println("You do not have access to do this");
@@ -162,12 +192,24 @@ public class CommandSwitch {
             System.out.println(CommandsEnum.BOOKS_REMOVE.getDescription());
 
         } else if (realCommand.equals(CommandsEnum.USER_ADD.getCommand())) {
+            if(openedFile == "" || openedFile == "books.xml"){
+                System.out.println("There is no opened file to save");
+            }
+            if(activeUser == null){
+                System.out.println("There is no active user!");
+            }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
                 System.out.println("You do not have access to do this");
             }
             System.out.println(CommandsEnum.USER_ADD.getDescription());
 
         } else if (realCommand.equals(CommandsEnum.USER_REMOVE.getCommand())) {
+            if(openedFile == "" || openedFile == "books.xml"){
+                System.out.println("There is no opened file to save");
+            }
+            if(activeUser == null){
+                System.out.println("There is no active user!");
+            }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
                 System.out.println("You do not have access to do this");
             }

@@ -19,10 +19,14 @@ public class BookListSingleton {
     }
 
     public ArrayList<Book> getAllBooks(){
-        return books;
+        return BookListSingleton.books;
     }
     
     public void addBook(Book book){
         books.add(book);
+    }
+
+    public void removeBook(Book bookToRemove){
+        books.remove(bookToRemove);
     }
 }

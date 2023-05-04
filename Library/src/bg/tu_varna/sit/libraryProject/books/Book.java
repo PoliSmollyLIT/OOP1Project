@@ -45,7 +45,7 @@ public class Book {
         }
 
         public Book build() {
-            return new Book();
+            return new Book(this);
         }
 
         private void setTitle(String title) {
@@ -109,43 +109,84 @@ public class Book {
         }
 
         protected String getIsbn() {
-            return isbn;
+            return this.isbn;
         }
     }
 
-    private Book() {
-    }
+    private String title;
+        private Author author;
+        private Genre genre;
+        private int publishingYear;
+        private String anotation;
+        private String keywords;
+        private Raiting raiting;
+        private String isbn;
 
+    private Book(Builder bookBuilder) {
+        this.title = bookBuilder.getTitle();
+        this.isbn = bookBuilder.getIsbn();
+        this.author = bookBuilder.getAuthor();
+        this.genre = bookBuilder.getGenre();
+        this.publishingYear = bookBuilder.getPublishingYear();
+        this.anotation = bookBuilder.getAnotation();
+        this.keywords = bookBuilder.getKeywords();
+        this.raiting = bookBuilder.getRaiting();
+    }
+    
     public String getTitle() {
-        return getTitle();
+        return title;
     }
 
     public Author getAuthor() {
-        return getAuthor();
+        return author;
     }
 
     public Genre getGenre() {
-        return getGenre();
+        return genre;
     }
 
     public int getPublishingYear() {
-        return getPublishingYear();
+        return publishingYear;
     }
 
     public String getAnotation() {
-        return getAnotation();
+        return anotation;
     }
 
     public String getKeywords() {
-        return getKeywords();
+        return keywords;
     }
 
     public Raiting getRaiting() {
-        return getRaiting();
+        return raiting;
     }
 
     public String getIsbn() {
-        return getIsbn();
+        return this.isbn;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder bookInfo = new StringBuilder();
+        bookInfo.append("Book " + this.getIsbn() + " - " + this.getTitle() + ", " + this.getAuthor().toString());
+        if(getRaiting() != null){
+            bookInfo.append("\n" + this.getRaiting().getRaiting());
+        }
+        if(getGenre() != null){
+            bookInfo.append("\n" + this.getGenre());
+        }
+        if(getPublishingYear() != 0){
+            bookInfo.append("\nPublishing year: " + this.getPublishingYear());
+        }
+        if(getKeywords() != null){
+            bookInfo.append("\nKeywords: " + this.getKeywords());
+        }
+        if(getAnotation() != null){
+            bookInfo.append("\n" + this.getAnotation());
+        }
+        return bookInfo.toString();
+    }
+
+    
     
 }
