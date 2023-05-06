@@ -26,6 +26,11 @@ public class UsersListSingleton {
         users.add(userToAdd);
     }
 
+    public void removeUser(User userToRemove){
+        User actualUserToRemove = findUserWithEnteredUserName(userToRemove);
+        users.remove(actualUserToRemove);
+    }
+
     public User getActiveUser() {
         return this.activeUser;
     }
@@ -72,5 +77,15 @@ public class UsersListSingleton {
             return true;
         }
         return false;
+    }
+
+    private User findUserWithEnteredUserName(User user){
+        User userToreturn = new User();
+        for (User searchUser : users) {
+            if (searchUser.getUserName().equals(user.getUserName())) {
+                userToreturn = searchUser;
+            }
+        }
+        return userToreturn;
     }
 }

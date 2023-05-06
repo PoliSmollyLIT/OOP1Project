@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import bg.tu_varna.sit.libraryProject.books.Author;
 import bg.tu_varna.sit.libraryProject.books.Book;
 import bg.tu_varna.sit.libraryProject.books.BookListSingleton;
 import bg.tu_varna.sit.libraryProject.books.Genre;
 import bg.tu_varna.sit.libraryProject.books.Raiting;
+import bg.tu_varna.sit.libraryProject.write.WriteToFileBooks;
 
 public class BooksCommand {
     private BookListSingleton bookList;
@@ -132,4 +135,19 @@ public class BooksCommand {
         System.out.println(b2.toString());
        
     }
+
+    public void removeBook() throws IOException, ParserConfigurationException{
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Enter ISBN of book: ");
+        String bookISBN = reader.readLine().toString();
+        Book bookToRemove = new Book.Builder(null, null, bookISBN).build();
+        if(!(BookListSingleton.getInstance().bookExist(bookToRemove))){
+            throw new IOException("Book with this ISBN doesn't exist!");
+        }else{
+        BookListSingleton.getInstance().removeBook(bookToRemove);
+        WriteToFileBooks fileWriter = new WriteToFileBooks();
+        fileWriter.writeToFile(BookListSingleton.getInstance().getAllBooks());
+    }
+    }
+
 }

@@ -35,9 +35,9 @@ public class ReadFromUsersFile extends ReadFromAllFiles implements ReadFromFileU
                     eElement.getElementsByTagName("password").item(0).getTextContent(), 
                     AccessLevel.valueOf(eElement.getElementsByTagName("access").item(0).getTextContent()));
                     usersList.addUser(user);
-                    System.out.println("Successufully opened users.xml");
                 }
             }
+            System.out.println("Successufully opened users.xml");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

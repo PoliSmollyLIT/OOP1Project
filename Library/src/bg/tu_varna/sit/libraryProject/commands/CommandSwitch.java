@@ -172,12 +172,11 @@ public class CommandSwitch {
                 BooksCommand booksCommands = new BooksCommand();
                 try {
                     booksCommands.addBook();
+                    System.out.println("Book added sucssessfully!");
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
-                System.out.println("Book added sucssessfully!");
-            }
-            
+                }                
+            }            
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_REMOVE.getCommand())) {
             if(openedFile == "" || openedFile == "users.xml"){
@@ -188,8 +187,17 @@ public class CommandSwitch {
             }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
                 System.out.println("You do not have access to do this");
-            }
-            System.out.println(CommandsEnum.BOOKS_REMOVE.getDescription());
+            }else{
+                BooksCommand booksCommands = new BooksCommand();
+                try {
+                    booksCommands.removeBook();
+                    System.out.println("Book added sucssessfully!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ParserConfigurationException e) {
+                   e.printStackTrace();
+                }                
+            }        
 
         } else if (realCommand.equals(CommandsEnum.USER_ADD.getCommand())) {
             if(openedFile == "" || openedFile == "books.xml"){
@@ -200,8 +208,17 @@ public class CommandSwitch {
             }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
                 System.out.println("You do not have access to do this");
+            }else{
+                UsersCommand usersCommands = new UsersCommand();
+                try {
+                    usersCommands.addUser();
+                    System.out.println("User added sucssessfully!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                }                
             }
-            System.out.println(CommandsEnum.USER_ADD.getDescription());
 
         } else if (realCommand.equals(CommandsEnum.USER_REMOVE.getCommand())) {
             if(openedFile == "" || openedFile == "books.xml"){
@@ -212,9 +229,17 @@ public class CommandSwitch {
             }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
                 System.out.println("You do not have access to do this");
+            }else{
+                UsersCommand usersCommands = new UsersCommand();
+                try {
+                    usersCommands.removeUser();
+                    System.out.println("User removed sucssessfully!");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ParserConfigurationException e) {
+                    e.printStackTrace();
+                }                
             }
-            System.out.println(CommandsEnum.USER_REMOVE.getDescription());
-
         } else {
             System.exit(0);
         }
