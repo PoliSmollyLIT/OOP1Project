@@ -35,6 +35,7 @@ public class App {
         //System.out.println(output1);
 */
         do{
+            System.out.println("\uD83D\uDE00");
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             CommandSwitch.runCommand(reader.readLine());
         }while(true);

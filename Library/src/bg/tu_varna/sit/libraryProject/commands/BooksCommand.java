@@ -150,4 +150,60 @@ public class BooksCommand {
     }
     }
 
+    public void findBookInfo(String isbn){
+        for(Book book : this.getBooksList()){
+            if(book.getIsbn().equals(isbn)){
+                System.out.println(book.toString());
+            }
+        }
+    }
+
+    public void findBook(String criteria, String value){
+        if(criteria.equals("title")){
+            if(findBookTitle(value) == null){
+                System.out.println("There is no book with this title");
+            }else{
+                System.out.println(findBookTitle(value).toString());
+            }            
+        }else if(criteria.equals("author")){
+            if(findBookAuthor(value) == null){
+                System.out.println("There is no book with this author");
+            }else{
+                System.out.println(findBookAuthor(value).toString());
+            }
+        }else if(criteria.equals("tag")){ // keywords
+            if(findBookTag(value) == null){
+                System.out.println("There is no book with this tag");
+            }else{
+                System.out.println(findBookTag(value).toString());
+            }
+        }
+    }
+
+    private Book findBookTitle(String title){
+        for(Book book : this.getBooksList()){
+            if(book.getTitle().equalsIgnoreCase(title)){
+                return book;
+            }
+        }
+        return null;
+    }
+
+    private Book findBookAuthor(String author){
+        for(Book book : this.getBooksList()){
+            if(book.getAuthor().toString().equalsIgnoreCase(author)){
+                return book;
+            }
+        }
+        return null;
+    }
+
+    private Book findBookTag(String tag){
+        for(Book book : this.getBooksList()){
+            if(book.getKeywords().contains(tag)){
+                return book;
+            }
+        }
+        return null;
+    }
 }

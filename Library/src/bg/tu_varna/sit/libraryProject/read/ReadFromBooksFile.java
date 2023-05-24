@@ -39,29 +39,29 @@ public class ReadFromBooksFile extends ReadFromAllFiles implements ReadFromFileB
                             new Author.AuthorBuilder(eElement.getElementsByTagName("author").item(0).getTextContent())
                                     .build(),
                             eElement.getElementsByTagName("isbn").item(0).getTextContent());
-                    if (eElement.hasAttribute("publishingYear")) {
+                    if (eElement.getElementsByTagName("publishingYear").getLength() != 0) {
                         builder.withPublishingYear(Integer
                                 .parseInt(eElement.getElementsByTagName("publishingYear").item(0).getTextContent()));
                     }
-                    if (eElement.hasAttribute("genre")) {
+                    if (eElement.getElementsByTagName("genre").getLength() != 0) {
                         builder.withGenre(
                                 Genre.valueOf(eElement.getElementsByTagName("genre").item(0).getTextContent()));
                     }
-                    if (eElement.hasAttribute("anotation")) {
+                    if (eElement.getElementsByTagName("anotation").getLength() != 0) {
                         builder.withAnotation(eElement.getElementsByTagName("anotation").item(0).getTextContent());
                     }
-                    if (eElement.hasAttribute("keywords")) {
+                    if (eElement.getElementsByTagName("keywords").getLength() != 0) {
                         builder.withKeywords(eElement.getElementsByTagName("keywords").item(0).getTextContent());
                     }
-                    if (eElement.hasAttribute("raiting")) {
+                    if (eElement.getElementsByTagName("raiting").getLength() != 0) {
                         builder.withRaiting(
                                 Raiting.valueOf(eElement.getElementsByTagName("raiting").item(0).getTextContent()));
                     }
                     book = builder.build();
                     bookList.addBook(book);
-                    System.out.println("Successufully opened books.xml");
                 }
             }
+            System.out.println("Successufully opened books.xml");
         } catch (Exception ex) {
             ex.printStackTrace();
         }

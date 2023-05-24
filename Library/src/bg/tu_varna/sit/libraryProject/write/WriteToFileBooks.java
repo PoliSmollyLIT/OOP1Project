@@ -55,7 +55,7 @@ public class WriteToFileBooks extends WriteToAllFiles implements WriteToBooksFil
             book.appendChild(bookAuthor);
             book.appendChild(bookIsbn);
             if (bookToAdd.getPublishingYear() != 0) {
-                Element bookYear = doc.createElement("publishinYear");
+                Element bookYear = doc.createElement("publishingYear");
                 Text bookYearTxt = doc.createTextNode(String.valueOf(bookToAdd.getPublishingYear()));
                 bookYear.appendChild(bookYearTxt);
                 book.appendChild(bookYear);

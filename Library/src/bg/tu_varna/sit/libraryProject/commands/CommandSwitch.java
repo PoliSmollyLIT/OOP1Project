@@ -41,7 +41,7 @@ public class CommandSwitch {
                 readFile.readFile();
                 openedFile = readFile.getFileName();   
             }else{
-                System.out.println(CommandsEnum.OPEN.getDescription());
+                System.out.println("Failed opening the file");
             }           
 
         } else if (realCommand.equals(CommandsEnum.CLOSE.getCommand())) {
@@ -138,8 +138,12 @@ public class CommandSwitch {
             }
             if(activeUser == null){
                 System.out.println("There is no active user!");
+            }else{
+                BooksCommand booksCommands = new BooksCommand();
+                booksCommands.findBookInfo(params);
+                System.out.println(CommandsEnum.BOOKS_INFO.getDescription());
             }
-            System.out.println(CommandsEnum.BOOKS_INFO.getDescription());
+            
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_FIND.getCommand())) {
             if(openedFile == "" || openedFile == "users.xml"){
@@ -147,8 +151,14 @@ public class CommandSwitch {
             }
             if(activeUser == null){
                 System.out.println("There is no active user!");
+            }else{
+                BooksCommand booksCommands = new BooksCommand();
+                String criteria = params;
+                String value = enteredCommand.substring(enteredCommand.indexOf(" ", enteredCommand.indexOf(criteria)));
+                value = value.trim();
+                booksCommands.findBook(criteria, value);
             }
-            System.out.println(CommandsEnum.BOOKS_FIND.getDescription());
+            
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_SORT.getCommand())) {
             if(openedFile == "" || openedFile == "users.xml"){
@@ -156,8 +166,21 @@ public class CommandSwitch {
             }
             if(activeUser == null){
                 System.out.println("There is no active user!");
+            }else{
+                BooksMergeSort sort = new BooksMergeSort();
+                boolean asc = true;
+                if(params.contains("desc")){
+                    asc = false;
+                }
+                if(!params.contains("title") || !params.contains("author") || !params.contains("year") || !params.contains("raiting")){
+                    System.out.println("Invalid criteria!");
+                }else{
+                    sort.divide(0, BookListSingleton.getInstance().getAllBooks().size(), params, asc);
+                    BooksCommand bk = new BooksCommand();
+                    bk.showAllBooks();
+                }                
             }
-            System.out.println(CommandsEnum.BOOKS_SORT.getDescription());
+            System.out.println(CommandsEnum.BOOKS_FIND.getDescription());
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_ADD.getCommand())) {
             if(openedFile == "" || openedFile == "users.xml"){
