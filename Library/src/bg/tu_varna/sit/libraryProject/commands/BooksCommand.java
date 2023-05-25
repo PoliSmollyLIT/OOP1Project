@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -12,6 +13,10 @@ import bg.tu_varna.sit.libraryProject.books.Book;
 import bg.tu_varna.sit.libraryProject.books.BookListSingleton;
 import bg.tu_varna.sit.libraryProject.books.Genre;
 import bg.tu_varna.sit.libraryProject.books.Raiting;
+import bg.tu_varna.sit.libraryProject.sort.SortBooksByAuthor;
+import bg.tu_varna.sit.libraryProject.sort.SortBooksByRaiting;
+import bg.tu_varna.sit.libraryProject.sort.SortBooksByTitle;
+import bg.tu_varna.sit.libraryProject.sort.SortBooksByYear;
 import bg.tu_varna.sit.libraryProject.write.WriteToFileBooks;
 
 public class BooksCommand {
@@ -205,5 +210,35 @@ public class BooksCommand {
             }
         }
         return null;
+    }
+
+    public void sortBooks(String criteria, boolean asc) throws Exception{
+        if(criteria.equals("title")){
+            if(asc == true){
+                Collections.sort(this.getBooksList(), new SortBooksByTitle());
+            }else{
+                Collections.sort(getBooksList(), Collections.reverseOrder(new SortBooksByTitle()));
+            }
+        }else if(criteria.equals("author")){
+            if(asc == true){
+                Collections.sort(this.getBooksList(), new SortBooksByAuthor());
+            }else{
+                Collections.sort(getBooksList(), Collections.reverseOrder(new SortBooksByAuthor()));
+            }
+        }else if(criteria.equals("year")){
+            if(asc == true){
+                Collections.sort(this.getBooksList(), new SortBooksByYear());
+            }else{
+                Collections.sort(getBooksList(), Collections.reverseOrder(new SortBooksByYear()));
+            }
+        }else if(criteria.equals("raiting")){
+            if(asc == true){
+                Collections.sort(this.getBooksList(), new SortBooksByRaiting());
+            }else{
+                Collections.sort(getBooksList(), Collections.reverseOrder(new SortBooksByRaiting()));
+            }
+        }else{
+            throw new Exception("ERROR 404: Something went wrong...");
+        }
     }
 }

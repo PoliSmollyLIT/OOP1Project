@@ -1,6 +1,6 @@
 package bg.tu_varna.sit.libraryProject.books;
 
-public class Book {
+public class Book implements Comparable<Book>{
 
     public static class Builder {
         private String title;
@@ -187,6 +187,68 @@ public class Book {
         return bookInfo.toString();
     }
 
-    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        result = prime * result + ((author == null) ? 0 : author.hashCode());
+        result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+        result = prime * result + publishingYear;
+        result = prime * result + ((anotation == null) ? 0 : anotation.hashCode());
+        result = prime * result + ((keywords == null) ? 0 : keywords.hashCode());
+        result = prime * result + ((raiting == null) ? 0 : raiting.hashCode());
+        result = prime * result + ((isbn == null) ? 0 : isbn.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Book other = (Book) obj;
+        if (title == null) {
+            if (other.title != null)
+                return false;
+        } else if (!title.equals(other.title))
+            return false;
+        if (author == null) {
+            if (other.author != null)
+                return false;
+        } else if (!author.equals(other.author))
+            return false;
+        if (genre != other.genre)
+            return false;
+        if (publishingYear != other.publishingYear)
+            return false;
+        if (anotation == null) {
+            if (other.anotation != null)
+                return false;
+        } else if (!anotation.equals(other.anotation))
+            return false;
+        if (keywords == null) {
+            if (other.keywords != null)
+                return false;
+        } else if (!keywords.equals(other.keywords))
+            return false;
+        if (raiting != other.raiting)
+            return false;
+        if (isbn == null) {
+            if (other.isbn != null)
+                return false;
+        } else if (!isbn.equals(other.isbn))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int compareTo(Book o) {
+        return this.getIsbn().compareTo(o.getIsbn());
+    }
+   
     
 }

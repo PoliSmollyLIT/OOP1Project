@@ -167,17 +167,20 @@ public class CommandSwitch {
             if(activeUser == null){
                 System.out.println("There is no active user!");
             }else{
-                BooksMergeSort sort = new BooksMergeSort();
+                BooksCommand booksCommand = new BooksCommand();
                 boolean asc = true;
-                if(params.contains("desc")){
+                if(enteredCommand.contains("desc")){
                     asc = false;
                 }
-                if(!params.contains("title") || !params.contains("author") || !params.contains("year") || !params.contains("raiting")){
+                if(!enteredCommand.contains("title") && !enteredCommand.contains("author") && !enteredCommand.contains("year") && !enteredCommand.contains("raiting")){
                     System.out.println("Invalid criteria!");
                 }else{
-                    sort.divide(0, BookListSingleton.getInstance().getAllBooks().size(), params, asc);
-                    BooksCommand bk = new BooksCommand();
-                    bk.showAllBooks();
+                    try{
+                    booksCommand.sortBooks(params, asc);
+                    booksCommand.showAllBooks();
+                    }catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                 }                
             }
             System.out.println(CommandsEnum.BOOKS_FIND.getDescription());

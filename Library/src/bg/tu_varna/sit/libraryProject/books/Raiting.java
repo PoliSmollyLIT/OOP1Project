@@ -1,15 +1,17 @@
 package bg.tu_varna.sit.libraryProject.books;
 
+import java.nio.charset.StandardCharsets;
+
 public enum Raiting {
-        ONE_STAR("🌕"),
-        STAR_AND_A_HALF("🌕🌗"), //\uD83C\uDF15\uD83C\uDF17
-        TWO_STARS("🌕🌕"),
-        TWO_STARS_AND_A_HALF("🌕🌕🌗"),
-        THREE_STARS("🌕🌕🌕"),
-        THREE_STARS_AND_A_HALF("🌕🌕🌕🌗"),
-        FOUR_STARS("🌕🌕🌕🌕"),
-        FOUR_STARS_AND_A_HALF("🌕🌕🌕🌕🌗"),
-        FIVE_STARS("🌕🌕🌕🌕🌕");
+        ONE_STAR(new String("🌕".getBytes(), StandardCharsets.UTF_8)),
+        STAR_AND_A_HALF(new String("🌕🌗".getBytes(), StandardCharsets.UTF_8)), //\uD83C\uDF15\uD83C\uDF17
+        TWO_STARS(new String("🌕🌕".getBytes(), StandardCharsets.UTF_8)),
+        TWO_STARS_AND_A_HALF(new String("🌕🌕🌗".getBytes(), StandardCharsets.UTF_8)),
+        THREE_STARS(new String("🌕🌕🌕".getBytes(), StandardCharsets.UTF_8)),
+        THREE_STARS_AND_A_HALF(new String("🌕🌕🌕🌗".getBytes(), StandardCharsets.UTF_8)),
+        FOUR_STARS(new String("🌕🌕🌕🌕".getBytes(), StandardCharsets.UTF_8)),
+        FOUR_STARS_AND_A_HALF(new String("🌕🌕🌕🌕🌗".getBytes(), StandardCharsets.UTF_8)),
+        FIVE_STARS(new String("🌕🌕🌕🌕🌕".getBytes(), StandardCharsets.UTF_8));
 
         private String output;
 
