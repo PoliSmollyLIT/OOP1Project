@@ -1,9 +1,5 @@
 package bg.tu_varna.sit.libraryProject.commands;
 
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
 import bg.tu_varna.sit.libraryProject.books.BookListSingleton;
 import bg.tu_varna.sit.libraryProject.read.ReadFromBooksFile;
 import bg.tu_varna.sit.libraryProject.read.ReadFromUsersFile;
@@ -29,7 +25,7 @@ public class CommandSwitch {
             realCommand = enteredCommand.split(" ")[0];
             params = enteredCommand.split(" ")[1];
         }
-        
+        try{
         if (realCommand.equals(CommandsEnum.OPEN.getCommand())) {
             if(params.equals("books.xml")){
                 ReadFromBooksFile readFile = new ReadFromBooksFile();
@@ -49,56 +45,40 @@ public class CommandSwitch {
             openedFile = "";
 
         } else if (realCommand.equals(CommandsEnum.SAVE.getCommand())) {
-            if(openedFile == ""){
-                System.out.println("There is no opened file to save");
+            if(openedFile.equals("")){
+                throw new Exception("There is no opened file to save");
             }
             if(openedFile.equals("books.xml")){
                 WriteToFileBooks writeFile = new WriteToFileBooks();
-                try {
                     writeFile.writeToFile(BookListSingleton.getInstance().getAllBooks());
                     System.out.println("Saved successfully");
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                }
             }
             else if(openedFile.equals("users.xml")){
                 WriteToFileUsers writeFile = new WriteToFileUsers();
-                try {
                     writeFile.writeToFile(UsersListSingleton.getInstance().getAllUsers());
                     System.out.println("Saved successfully");
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                }
             }
             else{
                     System.out.println("Saved unsuccessfully");
                 }
             
         } else if (realCommand.equals(CommandsEnum.SAVEAS.getCommand())) {
-            if(openedFile == ""){
-                System.out.println("There is no opened file to save");
+            if(openedFile.equals("")){
+                throw new Exception("There is no opened file to save");
             }
             
             else if(openedFile.equals("books.xml")){
                 WriteToFileBooks writeFile = new WriteToFileBooks();
                 writeFile.setNewFileName(params);
-                try {
                     writeFile.writeToFile(BookListSingleton.getInstance().getAllBooks());
                     System.out.println("Saved successfully");
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                }
-            }
+               }
             else if(openedFile.equals("users.xml")){
                 WriteToFileUsers writeFile = new WriteToFileUsers();
                 writeFile.setNewFileName(params);
-                try {
                     writeFile.writeToFile(UsersListSingleton.getInstance().getAllUsers());
                     System.out.println("Saved successfully");
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                }
-            }
+               }
             else{
                     System.out.println("Saved unsuccessfully");
                 }
@@ -109,64 +89,64 @@ public class CommandSwitch {
             }
 
         } else if (realCommand.equals(CommandsEnum.LOGIN.getCommand())) {
-            LoginCommand login = new LoginCommand();
-            try {
-                login.login();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if(openedFile.equals("") || openedFile.equals("books.xml")){
+                throw new Exception("Cannot log in when you work on books file!");
+            }else{
+                LoginCommand login = new LoginCommand();
+                login.login(); 
             }
-
+            
         } else if (realCommand.equals(CommandsEnum.LOGOUT.getCommand())) {
             LoginCommand login = new LoginCommand();
             login.logout();
-            System.out.println("You have been sucssessfully logged out!");
+            System.out.println("You have been successfully logged out!");
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_ALL.getCommand())) {
-            if(openedFile == "" || openedFile == "users.xml"){
-                System.out.println("There is no opened file to save");
+            if(openedFile.equals("") || openedFile.equals("users.xml")){
+                throw new Exception("The opened file is not right");
             }
             if(activeUser == null){
-                System.out.println("There is no active user!");
+                throw new Exception("There is no active user!");
             }
             BooksCommand booksCommands = new BooksCommand();
             booksCommands.showAllBooks();
-            System.out.println(CommandsEnum.BOOKS_ALL.getDescription());
-
+    
         } else if (realCommand.equals(CommandsEnum.BOOKS_INFO.getCommand())) {
-            if(openedFile == "" || openedFile == "users.xml"){
-                System.out.println("There is no opened file to save");
+            if(openedFile.equals("") || openedFile.equals("users.xml")){
+                throw new Exception("The opened file is not right");
             }
             if(activeUser == null){
-                System.out.println("There is no active user!");
-            }else{
+                throw new Exception("There is no active user!");
+            }
+           else{
                 BooksCommand booksCommands = new BooksCommand();
                 booksCommands.findBookInfo(params);
-                System.out.println(CommandsEnum.BOOKS_INFO.getDescription());
             }
             
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_FIND.getCommand())) {
-            if(openedFile == "" || openedFile == "users.xml"){
-                System.out.println("There is no opened file to save");
+            if(openedFile.equals("") || openedFile.equals("users.xml")){
+                throw new Exception("The opened file is not right");
             }
             if(activeUser == null){
-                System.out.println("There is no active user!");
-            }else{
+                throw new Exception("There is no active user!");
+            }
+           else{
                 BooksCommand booksCommands = new BooksCommand();
                 String criteria = params;
                 String value = enteredCommand.substring(enteredCommand.indexOf(" ", enteredCommand.indexOf(criteria)));
                 value = value.trim();
-                booksCommands.findBook(criteria, value);
+                booksCommands.findBook(criteria, value);       
             }
             
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_SORT.getCommand())) {
-            if(openedFile == "" || openedFile == "users.xml"){
-                System.out.println("There is no opened file to save");
+            if(openedFile.equals("") || openedFile.equals("users.xml")){
+                throw new Exception("The opened file is not right");
             }
             if(activeUser == null){
-                System.out.println("There is no active user!");
-            }else{
+                throw new Exception("There is no active user!");
+            }else{               
                 BooksCommand booksCommand = new BooksCommand();
                 boolean asc = true;
                 if(enteredCommand.contains("desc")){
@@ -175,99 +155,79 @@ public class CommandSwitch {
                 if(!enteredCommand.contains("title") && !enteredCommand.contains("author") && !enteredCommand.contains("year") && !enteredCommand.contains("raiting")){
                     System.out.println("Invalid criteria!");
                 }else{
-                    try{
+                   
                     booksCommand.sortBooks(params, asc);
                     booksCommand.showAllBooks();
-                    }catch(Exception e){
-                        System.out.println(e.getMessage());
                     }
-                }                
             }
-            System.out.println(CommandsEnum.BOOKS_FIND.getDescription());
-
         } else if (realCommand.equals(CommandsEnum.BOOKS_ADD.getCommand())) {
-            if(openedFile == "" || openedFile == "users.xml"){
-                System.out.println("There is no opened file to save");
+            if(openedFile.equals("") || openedFile.equals("users.xml")){
+                throw new Exception("Cannot add book when you work on users file!");
             }
             if(activeUser == null){
-                System.out.println("There is no active user!");
+                throw new Exception("There is no active user!");
             }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
-                System.out.println("You do not have access to do this");
+                throw new Exception("You do not have access to do this");
             }else{
                 BooksCommand booksCommands = new BooksCommand();
-                try {
+               
                     booksCommands.addBook();
                     System.out.println("Book added sucssessfully!");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }                
+                            
             }            
 
         } else if (realCommand.equals(CommandsEnum.BOOKS_REMOVE.getCommand())) {
             if(openedFile == "" || openedFile == "users.xml"){
-                System.out.println("There is no opened file to save");
+                throw new Exception("Cannot remove book when you work on users file!");
             }
             if(activeUser == null){
-                System.out.println("There is no active user!");
+                throw new Exception("There is no active user!");
             }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
-                System.out.println("You do not have access to do this");
+                throw new Exception("You do not have access to do this");
             }else{
                 BooksCommand booksCommands = new BooksCommand();
-                try {
                     booksCommands.removeBook();
-                    System.out.println("Book added sucssessfully!");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ParserConfigurationException e) {
-                   e.printStackTrace();
-                }                
+                    System.out.println("Book removed sucssessfully!");              
             }        
 
         } else if (realCommand.equals(CommandsEnum.USER_ADD.getCommand())) {
-            if(openedFile == "" || openedFile == "books.xml"){
-                System.out.println("There is no opened file to save");
+            if(openedFile.equals("") || openedFile.equals("books.xml")){
+                throw new Exception("Cannot add user when you work on books file!");
             }
             if(activeUser == null){
-                System.out.println("There is no active user!");
+                throw new Exception("There is no active user!");
             }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
-                System.out.println("You do not have access to do this");
+                throw new Exception("You do not have access to do this");
             }else{
                 UsersCommand usersCommands = new UsersCommand();
-                try {
                     usersCommands.addUser();
-                    System.out.println("User added sucssessfully!");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                }                
+                    System.out.println("User added sucssessfully!");           
             }
 
         } else if (realCommand.equals(CommandsEnum.USER_REMOVE.getCommand())) {
-            if(openedFile == "" || openedFile == "books.xml"){
-                System.out.println("There is no opened file to save");
+            if(openedFile.equals("") || openedFile.equals("books.xml")){
+                throw new Exception("Cannot remove user when you work on books file!");
             }
             if(activeUser == null){
-                System.out.println("There is no active user!");
+                throw new Exception("There is no active user!");
             }
             if(activeUser.getAccessLevel() != AccessLevel.ADMIN){
-                System.out.println("You do not have access to do this");
+                throw new Exception("You do not have access to do this");
             }else{
                 UsersCommand usersCommands = new UsersCommand();
-                try {
-                    usersCommands.removeUser();
-                    System.out.println("User removed sucssessfully!");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ParserConfigurationException e) {
-                    e.printStackTrace();
-                }                
+                   usersCommands.removeUser();
+                    System.out.println("User removed sucssessfully!");          
             }
-        } else {
+        } else if(realCommand.equals(CommandsEnum.EXIT.getCommand())){
             System.exit(0);
+        }else{
+            System.out.println("Invalid command! Try again");
         }
+    }catch(Exception e){
+        System.out.println(e.getMessage());
+    }
 
     }}

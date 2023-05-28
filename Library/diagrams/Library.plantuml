@@ -1,0 +1,175 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+enum AccessLevel << enumeration >> {
+  + values(): AccessLevel[]
+  + valueOf(String): AccessLevel
+}
+class App {
+  + main(String[]): void
+}
+class Author {
+  + toString(): String
+  + compareTo(Author): int
+  + getFirstName(): String
+  + hashCode(): int
+  + equals(Object): boolean
+  + getLastName(): String
+}
+class Book {
+  + equals(Object): boolean
+  + getIsbn(): String
+  + getPublishingYear(): int
+  + compareTo(Book): int
+  + getAuthor(): Author
+  + getTitle(): String
+  + toString(): String
+  + getRaiting(): Raiting
+  + hashCode(): int
+  + getAnotation(): String
+  + getKeywords(): String
+  + getGenre(): Genre
+}
+class BookListSingleton {
+  + addBook(Book): void
+  - findBookWithEntereISBN(Book): Book
+  + removeBook(Book): void
+  + getInstance(): BookListSingleton
+  + bookExist(Book): boolean
+  + getAllBooks(): ArrayList<Book>
+}
+class BooksCommand {
+  - findBookAuthor(String): Book?
+  + showAllBooks(): void
+  + removeBook(): void
+  - findBookTitle(String): Book?
+  + findBook(String, String): void
+  + sortBooks(String, boolean): void
+  - getBooksList(): ArrayList<Book>
+  - findBookTag(String): Book?
+  + addBook(): void
+  + findBookInfo(String): void
+}
+class CommandSwitch {
+  + runCommand(String): void
+}
+enum CommandsEnum << enumeration >> {
+  + getDescription(): String
+  + valueOf(String): CommandsEnum
+  + values(): CommandsEnum[]
+  + getCommand(): String
+}
+enum Genre << enumeration >> {
+  + values(): Genre[]
+  + valueOf(String): Genre
+}
+class LoginCommand {
+  + login(): void
+  + logout(): void
+}
+enum Raiting << enumeration >> {
+  + values(): Raiting[]
+  + getRaiting(): String
+  + valueOf(String): Raiting
+}
+class ReadFromAllFiles {
+  + readFile(): void
+}
+class ReadFromBooksFile {
+  + readFile(): void
+  + getFileName(): String
+}
+interface ReadFromFile << interface >> {
+  + readFile(): void
+}
+interface ReadFromFileBooks << interface >>
+interface ReadFromFileUsers << interface >>
+class ReadFromUsersFile {
+  + getFileName(): String
+  + readFile(): void
+}
+class SortBooksByAuthor {
+  + compare(Book, Book): int
+}
+class SortBooksByRaiting {
+  + compare(Book, Book): int
+}
+class SortBooksByTitle {
+  + compare(Book, Book): int
+}
+class SortBooksByYear {
+  + compare(Book, Book): int
+}
+class User {
+  + getUserName(): String
+  - setUserPassword(String): void
+  - setUserUserName(String): void
+  + getPassword(): String
+  + setUserInfo(String, String, AccessLevel): void
+  + setUserLoginInfo(String, String): void
+  + toString(): String
+  + getAccessLevel(): AccessLevel
+}
+class UsersCommand {
+  - getUsers(): ArrayList<User>
+  + writePassword(): String
+  + addUser(): void
+  + showAllUsers(): void
+  - writeAccessLevel(): AccessLevel
+  + writeUserName(): String
+  + removeUser(): void
+}
+class UsersListSingleton {
+  + getInstance(): UsersListSingleton
+  + setActiveUser(User): void
+  + checkIfCorrectCredentials(User): boolean
+  + addUser(User): void
+  + getAllUsers(): ArrayList<User>
+  + getActiveUser(): User
+  + userExist(User): boolean
+  + removeUser(User): void
+  - findUserWithEnteredUserName(User): User
+  + checkIfUserIsActive(User): boolean
+}
+class WriteToAllFiles {
+  + writeToXml(String, Document): void
+  + writeXml(Document, OutputStream): void
+}
+interface WriteToBooksFile << interface >> {
+  + writeToFile(ArrayList<Book>): void
+}
+interface WriteToFile << interface >> {
+  + writeXml(Document, OutputStream): void
+}
+class WriteToFileBooks {
+  + writeToFile(ArrayList<Book>): void
+  - generateDocument(ArrayList<Book>): Document
+  + setNewFileName(String): void
+}
+class WriteToFileUsers {
+  + setNewFileName(String): void
+  + writeToFile(ArrayList<User>): void
+  - generateDocument(ArrayList<User>): Document
+}
+interface WriteToUsersFile << interface >> {
+  + writeToFile(ArrayList<User>): void
+}
+
+ReadFromAllFiles    -[#008200,dashed]-^  ReadFromFile       
+ReadFromBooksFile   -[#000082,plain]-^  ReadFromAllFiles   
+ReadFromBooksFile   -[#008200,dashed]-^  ReadFromFileBooks  
+ReadFromFileBooks   -[#008200,plain]-^  ReadFromFile       
+ReadFromFileUsers   -[#008200,plain]-^  ReadFromFile       
+ReadFromUsersFile   -[#000082,plain]-^  ReadFromAllFiles   
+ReadFromUsersFile   -[#008200,dashed]-^  ReadFromFileUsers  
+WriteToAllFiles     -[#008200,dashed]-^  WriteToFile        
+WriteToBooksFile    -[#008200,plain]-^  WriteToFile        
+WriteToFileBooks    -[#000082,plain]-^  WriteToAllFiles    
+WriteToFileBooks    -[#008200,dashed]-^  WriteToBooksFile   
+WriteToFileUsers    -[#000082,plain]-^  WriteToAllFiles    
+WriteToFileUsers    -[#008200,dashed]-^  WriteToUsersFile   
+WriteToUsersFile    -[#008200,plain]-^  WriteToFile        
+@enduml

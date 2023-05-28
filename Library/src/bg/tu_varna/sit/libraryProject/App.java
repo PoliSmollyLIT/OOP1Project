@@ -12,8 +12,7 @@ import bg.tu_varna.sit.libraryProject.commands.CommandSwitch;
 public class App {
     public static void main(String[] args) throws Exception {
          do{
-            String emoji = :full_moon:;
-            System.out.println(emoji);
+            System.out.println("\n");
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             CommandSwitch.runCommand(reader.readLine());
         }while(true);

@@ -23,7 +23,9 @@ public class BookListSingleton {
     }
     
     public void addBook(Book book){
-        books.add(book);
+        if(this.bookExist(book) == false){
+            books.add(book);
+        }
     }
 
     public void removeBook(Book bookToRemove){

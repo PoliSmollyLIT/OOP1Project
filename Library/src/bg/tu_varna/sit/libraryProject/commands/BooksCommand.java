@@ -155,7 +155,10 @@ public class BooksCommand {
     }
     }
 
-    public void findBookInfo(String isbn){
+    public void findBookInfo(String isbn) throws Exception{
+        if(isbn.equals("")){
+            throw new Exception("Cannot search for book withou specified isbn!");
+        }
         for(Book book : this.getBooksList()){
             if(book.getIsbn().equals(isbn)){
                 System.out.println(book.toString());
