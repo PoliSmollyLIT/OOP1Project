@@ -1,13 +1,13 @@
 package bg.tu_varna.sit.libraryProject.commands;
 
 import bg.tu_varna.sit.libraryProject.books.BookListSingleton;
-import bg.tu_varna.sit.libraryProject.read.ReadFromBooksFile;
-import bg.tu_varna.sit.libraryProject.read.ReadFromUsersFile;
+import bg.tu_varna.sit.libraryProject.commands.read.ReadFromBooksFile;
+import bg.tu_varna.sit.libraryProject.commands.read.ReadFromUsersFile;
+import bg.tu_varna.sit.libraryProject.commands.write.WriteToFileBooks;
+import bg.tu_varna.sit.libraryProject.commands.write.WriteToFileUsers;
 import bg.tu_varna.sit.libraryProject.users.AccessLevel;
 import bg.tu_varna.sit.libraryProject.users.User;
 import bg.tu_varna.sit.libraryProject.users.UsersListSingleton;
-import bg.tu_varna.sit.libraryProject.write.WriteToFileBooks;
-import bg.tu_varna.sit.libraryProject.write.WriteToFileUsers;
 
 public class CommandSwitch {
     private static String openedFile = "";

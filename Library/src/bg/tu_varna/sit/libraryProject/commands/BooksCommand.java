@@ -13,11 +13,11 @@ import bg.tu_varna.sit.libraryProject.books.Book;
 import bg.tu_varna.sit.libraryProject.books.BookListSingleton;
 import bg.tu_varna.sit.libraryProject.books.Genre;
 import bg.tu_varna.sit.libraryProject.books.Raiting;
-import bg.tu_varna.sit.libraryProject.sort.SortBooksByAuthor;
-import bg.tu_varna.sit.libraryProject.sort.SortBooksByRaiting;
-import bg.tu_varna.sit.libraryProject.sort.SortBooksByTitle;
-import bg.tu_varna.sit.libraryProject.sort.SortBooksByYear;
-import bg.tu_varna.sit.libraryProject.write.WriteToFileBooks;
+import bg.tu_varna.sit.libraryProject.commands.sort.SortBooksByAuthor;
+import bg.tu_varna.sit.libraryProject.commands.sort.SortBooksByRaiting;
+import bg.tu_varna.sit.libraryProject.commands.sort.SortBooksByTitle;
+import bg.tu_varna.sit.libraryProject.commands.sort.SortBooksByYear;
+import bg.tu_varna.sit.libraryProject.commands.write.WriteToFileBooks;
 
 public class BooksCommand {
     private BookListSingleton bookList;

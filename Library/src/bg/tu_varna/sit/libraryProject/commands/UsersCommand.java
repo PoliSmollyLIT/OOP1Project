@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import bg.tu_varna.sit.libraryProject.commands.write.WriteToFileUsers;
 import bg.tu_varna.sit.libraryProject.users.AccessLevel;
 import bg.tu_varna.sit.libraryProject.users.User;
 import bg.tu_varna.sit.libraryProject.users.UsersListSingleton;
-import bg.tu_varna.sit.libraryProject.write.WriteToFileUsers;
 
 public class UsersCommand {
     private UsersListSingleton users;
